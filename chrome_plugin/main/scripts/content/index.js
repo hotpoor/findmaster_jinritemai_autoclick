@@ -90,8 +90,9 @@
         }
         daren_list_str = $(".daren-square-table-warp--card-menu>[elementtiming=element-timing]").text();
         daren_list_num = parseInt(daren_list_str.split("共")[1]);
+        Hs.a_daren_list_nub = 0;
         localStorage.setItem("a_daren_list", JSON.stringify(Hs.uids));
-        localStorage.setItem("a_daren_list_nub", "0");
+        localStorage.setItem("a_daren_list_nub", `${Hs.a_daren_list_nub}`);
         localStorage.setItem("a_daren_list_run", JSON.stringify(Hs.uids_run));
         return Hs.show_info(`${Hs.uids.length}/${daren_list_num} 已经到底啦`);
       }
@@ -136,7 +137,7 @@
   };
 
   Hs.jinritemai_yaoyue_run = async function() {
-    var _aim_link, _good, findmaster_people_num, i, j, len, len1, ref, ref1;
+    var _aim_link, _current_fee_per_cent, _good, findmaster_goods_use_num, findmaster_people_num, i, j, len, len1, ref, ref1;
     console.log("jinritemai_yaoyue_run run");
     console.log("邀约进行中");
     // 判断当前链接是不是要访问的链接
@@ -158,8 +159,16 @@
       $(".dp__action.dp__action-contact-online").click();
       Hs.show_info("点击报名招商");
       await Hs.sleep(2000);
+      _current_fee_per_cent = parseInt($($(".dp__items>div>.dp__item-content")[1]).text());
+      if (isNaN(_current_fee_per_cent)) {
+        _current_fee_per_cent = 0;
+      }
+      findmaster_goods_use_num = 0;
       for (i = 0, len = findmaster_goods.length; i < len; i++) {
         _good = findmaster_goods[i];
+        if (_good["fee_per_cent"] < _current_fee_per_cent) {
+          continue;
+        }
         $(".add-product-operate>button").click();
         Hs.show_info("点击添加商品");
         await Hs.sleep(1000);
@@ -170,6 +179,11 @@
         $(".auxo-table-row.auxo-table-row-level-0>td>label").click();
         Hs.show_info("勾选");
         await Hs.sleep(2000);
+        findmaster_goods_use_num += 1;
+      }
+      if (findmaster_goods_use_num === 0) {
+        Hs.next_yaoyue();
+        return;
       }
       console.log($(".add-product__footer-wrapper>div>button.auxo-btn.auxo-btn-primary")[0].disabled);
       if ($(".add-product__footer-wrapper>div>button.auxo-btn.auxo-btn-primary")[0].disabled) {
@@ -181,6 +195,12 @@
       await Hs.sleep(3000);
       for (j = 0, len1 = findmaster_goods.length; j < len1; j++) {
         _good = findmaster_goods[j];
+        if (_good["fee_per_cent"] < _current_fee_per_cent) {
+          continue;
+        }
+        if ($(`#cos_ratio_${_good["good_id"]}`).length === 0) {
+          continue;
+        }
         Hs.dom_insert_text($(`#cos_ratio_${_good["good_id"]}`)[0], _good["fee_per_cent"]);
         Hs.show_info("更改佣金");
         await Hs.sleep(1000);
