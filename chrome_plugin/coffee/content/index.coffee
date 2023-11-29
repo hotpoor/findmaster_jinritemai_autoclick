@@ -116,10 +116,14 @@ Hs.jinritemai_yaoyue_run = ()->
         Hs.next_yaoyue()
         return
     else if $(".dp__action.dp__action-contact-online").text() in ["报名招商"]
+        if $(".dp__action.dp__action-contact-online").hasClass("daily-apply-todo-text-disabled")
+            Hs.show_info "不能点击报名招商，数量用完"
+            Hs.stop_run()
+            return
+
         $(".dp__action.dp__action-contact-online").click()
         Hs.show_info "点击报名招商"
         await Hs.sleep 2000
-
 
         _current_fee_per_cent = parseInt($($(".dp__items>div>.dp__item-content")[1]).text())
         if isNaN(_current_fee_per_cent)

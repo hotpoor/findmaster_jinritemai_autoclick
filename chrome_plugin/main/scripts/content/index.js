@@ -156,6 +156,11 @@
     if ((ref = $(".dp__action.dp__action-contact-online").text()) === "待处理") {
       Hs.next_yaoyue();
     } else if ((ref1 = $(".dp__action.dp__action-contact-online").text()) === "报名招商") {
+      if ($(".dp__action.dp__action-contact-online").hasClass("daily-apply-todo-text-disabled")) {
+        Hs.show_info("不能点击报名招商，数量用完");
+        Hs.stop_run();
+        return;
+      }
       $(".dp__action.dp__action-contact-online").click();
       Hs.show_info("点击报名招商");
       await Hs.sleep(2000);
