@@ -199,6 +199,7 @@ $ ->
             </div>
         </div>
         """
+        Hs.show_info "进展情况展示"
         if Hs.uids_run["run"]
             setTimeout ()->
                 Hs.jinritemai_yaoyue_run()

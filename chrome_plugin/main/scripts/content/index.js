@@ -243,6 +243,7 @@
         <div><button id="findmaster_jinritemai_yaoyue_stop">停止邀约</button></div>
     </div>
 </div>`);
+      Hs.show_info("进展情况展示");
       if (Hs.uids_run["run"]) {
         return setTimeout(function() {
           return Hs.jinritemai_yaoyue_run();
