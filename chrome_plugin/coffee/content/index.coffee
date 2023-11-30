@@ -162,7 +162,7 @@ Hs.jinritemai_yaoyue_run = ()->
                 continue
             Hs.dom_insert_text $("#cos_ratio_#{_good["good_id"]}")[0],_good["fee_per_cent"]
             Hs.show_info "更改佣金"
-            await Hs.sleep 1000
+            # await Hs.sleep 1000
 
         findmaster_people_num = parseInt(Math.random()*10%findmaster_people.length)
         Hs.show_info "联系人选择#{findmaster_people_num}"
