@@ -112,7 +112,7 @@ Hs.jinritemai_yaoyue_run = ()->
     # 点击报名招商
     Hs.show_info "加载等待6秒"
     await Hs.sleep 6000
-    if $(".dp__action.dp__action-contact-online").text() in ["待处理"]
+    if $(".dp__action.dp__action-contact-online").text() in ["待处理","达人感兴趣"]
         Hs.next_yaoyue()
         return
     else if $(".dp__action.dp__action-contact-online").text() in ["报名招商"]
@@ -139,6 +139,9 @@ Hs.jinritemai_yaoyue_run = ()->
             Hs.show_info "添加商品ID#{_good["good_id"]}"
             await Hs.sleep 2000
             # $(".auxo-table-cell.auxo-table-selection-column>div>label").click()
+            if $(".auxo-table-row.auxo-table-row-level-0>td>label").length == 0
+                Hs.next_yaoyue()
+                return
             $(".auxo-table-row.auxo-table-row-level-0>td>label").click()
             Hs.show_info "勾选"
             await Hs.sleep 2000

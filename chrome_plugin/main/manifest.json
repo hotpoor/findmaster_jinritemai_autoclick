@@ -22,7 +22,7 @@
                 "scripts/content/findmaster_goods.js",
                 "scripts/content/index.js"],
             "run_at":"document_end",
-            "all_frames": false
+            "all_frames": true
         }
     ],
     "background": {
